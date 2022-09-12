@@ -7,11 +7,13 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Player;
+
 public class Game_Window extends JPanel implements Runnable{
 	final int basic_Tile_Size = 16;
 	final int in_Game_Scale = 3;
 	
-	final int tileSize = basic_Tile_Size * in_Game_Scale;
+	public final int tileSize = basic_Tile_Size * in_Game_Scale;
 	
 	final int max_Screen_Column = 16;
 	final int max_Screen_Row = 12;
@@ -22,8 +24,9 @@ public class Game_Window extends JPanel implements Runnable{
 	final int FPS = 60;
 	
 	Keyboard_Handler keyHandler = new Keyboard_Handler();
-
 	Thread gameThread;
+	Player player = new Player(this, keyHandler);
+	
 	
 	
 	//Player position
@@ -112,21 +115,7 @@ public class Game_Window extends JPanel implements Runnable{
 	
 	
 	public void update() {
-		if(keyHandler.upPressed == true) {
-			playerY -= playerSpeed;
-		}
-		
-		if(keyHandler.downPressed == true) {
-			playerY += playerSpeed;
-		}
-		
-		if(keyHandler.leftPressed == true) {
-			playerX -= playerSpeed;
-		}
-		
-		if(keyHandler.rightPressed == true) {
-			playerX += playerSpeed;
-		}
+		player.update();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -135,9 +124,7 @@ public class Game_Window extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
-		g2.setColor(Color.white);
-		
-		g2.fillRect(playerX, playerY, tileSize, tileSize);
+		player.draw(g2);
 		
 		g2.dispose();
 		
