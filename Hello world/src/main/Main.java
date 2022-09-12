@@ -19,6 +19,8 @@ public class Main {
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+		
+		game_Window.Start_Game_Thread();
 	}
 
 }
