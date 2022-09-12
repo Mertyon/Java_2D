@@ -99,6 +99,7 @@ public class Game_Window extends JPanel implements Runnable{
 				update();
 				repaint();
 				delta--;
+				drawCount++;
 			}
 			
 			if(timer >= 1000000000) {
