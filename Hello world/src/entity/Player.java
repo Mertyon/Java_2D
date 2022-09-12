@@ -52,24 +52,42 @@ public class Player extends Entity{
 	
 	public void update() {
 		
-		if(keyHandler.upPressed == true) {
-			direction = "up";
-			y -= speed;
-		}
-		
-		if(keyHandler.downPressed == true) {
-			direction = "down";
-			y += speed;
-		}
-		
-		if(keyHandler.leftPressed == true) {
-			direction = "left";
-			x -= speed;
-		}
-		
-		if(keyHandler.rightPressed == true) {
-			direction = "right";
-			x += speed;
+		if(keyHandler.upPressed == true || keyHandler.downPressed == true || 	
+				keyHandler.rightPressed == true || keyHandler.leftPressed == true) {
+			
+			if(keyHandler.upPressed == true) {
+				direction = "up";
+				y -= speed;
+			}
+			
+			if(keyHandler.downPressed == true) {
+				direction = "down";
+				y += speed;
+			}
+			
+			if(keyHandler.leftPressed == true) {
+				direction = "left";
+				x -= speed;
+			}
+			
+			if(keyHandler.rightPressed == true) {
+				direction = "right";
+				x += speed;
+			}
+			
+			//sprite counter
+			sprite_Counter++;
+			
+			if(sprite_Counter > 11) {
+				if(sprite_Num == 1) {
+					sprite_Num = 2;
+				}
+				else if (sprite_Num == 2) {
+					sprite_Num = 1;
+
+				}
+				sprite_Counter = 0;
+			}
 		}
 	}
 	
@@ -83,16 +101,37 @@ public class Player extends Entity{
 		
 		switch(direction) {
 		case "up":
-			image = up1;
+			if (sprite_Num == 1) {
+				image = up1;
+			}
+			if (sprite_Num == 2) {
+				image = up2;
+			}
 			break;
+			
 		case "down":
-			image = down1;
+			if (sprite_Num == 1) {
+				image = down1;
+			}
+			if (sprite_Num == 2) {
+				image = down2;
+			}
 			break;
 		case "right":
-			image = right1;
+			if (sprite_Num == 1) {
+				image = right1;
+			}
+			if (sprite_Num == 2) {
+				image = right2;
+			}
 			break;
 		case "left":
-			image = left1;
+			if (sprite_Num == 1) {
+				image = left1;
+			}
+			if (sprite_Num == 2) {
+				image = left2;
+			}
 			break;
 		}
 		
