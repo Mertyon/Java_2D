@@ -1,7 +1,7 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -15,18 +15,30 @@ public class Player extends Entity{
 	Game_Window game_Window;
 	Keyboard_Handler keyHandler;
 	
+	public final int screenX;
+	public final int screenY;
+	
 	public Player(Game_Window game_Window, Keyboard_Handler keyHandler) {
 		
 		this.game_Window = game_Window;
 		this.keyHandler = keyHandler;
+		
+		screenY = game_Window.max_Screen_Height/2 - (game_Window.tileSize/2);
+		screenX = game_Window.max_Screen_Width/2 - (game_Window.tileSize/2);
+		
+		collider = new Rectangle();
+		collider.x = 8;
+		collider.y = 16;
+		collider.width = 28;
+		collider.height = 28;
 		
 		set_Default_Values();
 		get_Player_Image();
 	}
 	
 	public void set_Default_Values() {
-		x = 100;
-		y = 100;
+		worldX = game_Window.tileSize * 23;
+		worldY = game_Window.tileSize * 21;
 		speed = 5;
 		direction = "down";
 	}
@@ -44,7 +56,6 @@ public class Player extends Entity{
 			left1 = ImageIO.read(getClass().getResourceAsStream("/player/L1.png"));
 			left2 = ImageIO.read(getClass().getResourceAsStream("/player/L2.png"));
 
-			
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -57,23 +68,35 @@ public class Player extends Entity{
 			
 			if(keyHandler.upPressed == true) {
 				direction = "up";
-				y -= speed;
+				worldY -= speed;
 			}
 			
 			if(keyHandler.downPressed == true) {
 				direction = "down";
-				y += speed;
+				worldY += speed;
 			}
 			
 			if(keyHandler.leftPressed == true) {
 				direction = "left";
-				x -= speed;
+				worldX -= speed;
 			}
 			
 			if(keyHandler.rightPressed == true) {
 				direction = "right";
-				x += speed;
+				worldX += speed;
 			}
+			
+			//check for collision
+			collisioner = false;
+			game_Window.collisionC.checkTile(this);
+			
+			//if false play3er can move
+		/*(collisioner == false) {
+				switch(direction) {
+				case "up"
+				
+				}
+			}*/
 			
 			//sprite counter
 			sprite_Counter++;
@@ -90,16 +113,13 @@ public class Player extends Entity{
 			}
 		}
 	}
-	
 
 	public void draw(Graphics2D g2) {
-		
-		//g2.setColor(Color.white);
-		//g2.fillRect(x, y, game_Window.tileSize, game_Window.tileSize);
 		
 		BufferedImage image = null;
 		
 		switch(direction) {
+		
 		case "up":
 			if (sprite_Num == 1) {
 				image = up1;
@@ -117,6 +137,7 @@ public class Player extends Entity{
 				image = down2;
 			}
 			break;
+			
 		case "right":
 			if (sprite_Num == 1) {
 				image = right1;
@@ -125,6 +146,7 @@ public class Player extends Entity{
 				image = right2;
 			}
 			break;
+			
 		case "left":
 			if (sprite_Num == 1) {
 				image = left1;
@@ -135,7 +157,6 @@ public class Player extends Entity{
 			break;
 		}
 		
-		g2.drawImage(image, x, y, game_Window.tileSize, game_Window.tileSize, null);
-		
+		g2.drawImage(image, screenX, screenY, game_Window.tileSize, game_Window.tileSize, null);
 	}
 }

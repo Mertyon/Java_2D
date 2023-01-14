@@ -8,31 +8,33 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import enviroment.Tile_Manger;
 
 public class Game_Window extends JPanel implements Runnable{
+	
+	private static final long serialVersionUID = 1L;
 	final int basic_Tile_Size = 16;
 	final int in_Game_Scale = 3;
 	
 	public final int tileSize = basic_Tile_Size * in_Game_Scale;
+	public final int max_Screen_Column = 22;
+	public final int max_Screen_Row = 16;
+	public final int max_Screen_Width = tileSize * max_Screen_Column;
+	public final int max_Screen_Height = tileSize * max_Screen_Row;
 	
-	final int max_Screen_Column = 16;
-	final int max_Screen_Row = 12;
-	
-	final int max_Screen_Width = tileSize * max_Screen_Column;
-	final int max_Screen_Height = tileSize * max_Screen_Row;
+	public final int max_World_Col = 100;
+	public final int max_World_Row = 100;
+	public final int world_Width = tileSize * max_World_Col;
+	public final int world_Height = tileSize * max_World_Row;
 	
 	final int FPS = 60;
 	
+	Tile_Manger tileM = new Tile_Manger(this);
 	Keyboard_Handler keyHandler = new Keyboard_Handler();
 	Thread gameThread;
-	Player player = new Player(this, keyHandler);
+	public Collision_Check collisionC = new Collision_Check(this);
+	public Player player = new Player(this, keyHandler);
 	
-	
-	
-	//Player position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 5;
 	
 	
 	public Game_Window() {
@@ -48,40 +50,6 @@ public class Game_Window extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
-	@Override
-	/*public void run() {		
-		
-		double drawInterwal = 1000000000/FPS; //0,016 seconds
-		double nextDrawTime = System.nanoTime() + drawInterwal;
-		
-		while (gameThread != null) {
-			
-			
-			update();
-			
-			repaint();
-			
-			
-			try {
-				double remainingTime  = nextDrawTime - System.nanoTime();
-				remainingTime = remainingTime/1000000; //Convert to miliseconds
-				
-				if(remainingTime < 0) {
-					remainingTime = 0;
-				}
-				Thread.sleep((long) remainingTime);
-				
-				nextDrawTime += drawInterwal;
-				
-			} catch (InterruptedException e) {
-				
-				
-				e.printStackTrace();
-			}
-			
-		}
-	}*/
-	
 	public void run() {
 		
 		double drawInterwal = 1000000000/FPS;
@@ -113,7 +81,6 @@ public class Game_Window extends JPanel implements Runnable{
 		}
 	}
 	
-	
 	public void update() {
 		player.update();
 	}
@@ -124,10 +91,10 @@ public class Game_Window extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
+		tileM.draw(g2);
+		
 		player.draw(g2);
 		
 		g2.dispose();
-		
 	}
-
 }
