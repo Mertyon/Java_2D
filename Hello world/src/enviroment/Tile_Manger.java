@@ -27,6 +27,7 @@ public class Tile_Manger {
 		loadMap("/maps/mapV2.txt");
 	}
 	
+	
 	public void get_Tile_Image(){
 	
 		try {
