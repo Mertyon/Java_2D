@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 import main.Game_Window;
 
+
+//Przypisanie ilości płytek + załadowanie "seedów"
 public class Tile_Manger {
 
 	Game_Window gw;
@@ -28,6 +30,7 @@ public class Tile_Manger {
 	}
 	
 	
+	//Podmiana płytki na odpowiedni obrazek
 	public void get_Tile_Image(){
 	
 		try {
@@ -48,10 +51,12 @@ public class Tile_Manger {
 			enviroment[4].image = ImageIO.read(getClass().getResourceAsStream("/enviroment/Tree.png"));
 			
 		}catch(IOException e){
-			e.printStackTrace();
+			e.printStackTrace(); //Wyłapanie błędu przy "ładownaiu mapy"
 		}
 	}
 	
+	
+	//Dzielenie i liczenie "seeda" załadowanej mapy, tak by na koniec wiersza zczytywał kolejny rząd
 	public void loadMap(String file_Path) {
 		
 		try {
@@ -84,6 +89,9 @@ public class Tile_Manger {
 		}catch(Exception e) {
 		}
 	}
+	
+	
+	//draw image tylko w obrębie pola widzianego wokoło gracza
 	public void draw(Graphics2D g2) {
 		
 		int worldCol = 0;
