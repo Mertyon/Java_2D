@@ -13,6 +13,7 @@ public class Keyboard_Handler implements KeyListener{
 		
 	}
 
+	//Wciśnięcie WASD
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
@@ -34,7 +35,8 @@ public class Keyboard_Handler implements KeyListener{
 			rightPressed = true;
 		}
 	}
-
+	
+	//Puść WASD
 	@Override
 	public void keyReleased(KeyEvent e) {	
 		
