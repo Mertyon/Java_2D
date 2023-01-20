@@ -1,6 +1,11 @@
+	
+	
+				//Do zrobienia
+
 package main;
 
 import entity.Entity;
+
 
 public class Collision_Check {
 
@@ -11,7 +16,9 @@ public class Collision_Check {
 		this.gw = gw;
 		
 	}
+
 	
+	//Case blokujące poruszanie się postaci w przypadku wejścia na dany tile
 	public void checkTile(Entity entity) {
 		
 		int entityLeftWorldX = entity.worldX + entity.collider.x;
