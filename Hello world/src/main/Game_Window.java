@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import entity.Player;
 import enviroment.Tile_Manger;
 
+
+//Game Settings
 public class Game_Window extends JPanel implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
@@ -29,6 +31,8 @@ public class Game_Window extends JPanel implements Runnable{
 	
 	final int FPS = 60;
 	
+	
+	//Składowe
 	Tile_Manger tileM = new Tile_Manger(this);
 	Keyboard_Handler keyHandler = new Keyboard_Handler();
 	Thread gameThread;
@@ -36,7 +40,7 @@ public class Game_Window extends JPanel implements Runnable{
 	public Player player = new Player(this, keyHandler);
 	
 	
-	
+	//Okno gry
 	public Game_Window() {
 		this.setPreferredSize(new Dimension(max_Screen_Width, max_Screen_Height));
 		this.setBackground(Color.black);
@@ -45,11 +49,14 @@ public class Game_Window extends JPanel implements Runnable{
 		this.setFocusable(true);
 	}
 
+	//Game start
 	public void Start_Game_Thread() {
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
 
+	
+	//FPS interwal na delcie  (bez znaczenia)
 	public void run() {
 		
 		double drawInterwal = 1000000000/FPS;
@@ -81,10 +88,13 @@ public class Game_Window extends JPanel implements Runnable{
 		}
 	}
 	
+	//Uppdate
 	public void update() {
 		player.update();
 	}
 
+	
+	//Draw game
 	public void paintComponent(Graphics g) {
 		
 		super.paintComponent(g);
