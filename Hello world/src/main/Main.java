@@ -10,7 +10,7 @@ public class Main {
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("2D_cv");
+		window.setTitle("2D");
 		
 		Game_Window game_Window = new Game_Window();
 		window.add(game_Window);
